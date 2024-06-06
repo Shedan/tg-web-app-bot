@@ -73,20 +73,13 @@ app.post('/web-data', async (req, res) =>{
             type: 'article',
             id: queryId,
             title: 'Замовлення успішне',
-            input_message_content: {message_text: 'Вітаємо, ви замовили товар на суму ' + totalPrice}
+            input_message_content: {message_text: `Вітаємо, ви замовили товар на суму ${totalPrice}, ${products.map(item => item.title).join(', ')}`
+        }
         })
         return res.status (200).json({});
     } catch (e) {
-        await bot.answerWebAppQuery(queryId, {
-            type: 'article',
-            id: queryId,
-            title: 'Не вдалося замовити товар',
-            input_message_content: {message_text: 'Не вдалося замовити товар'}
-        })
         return res.status (500).json({});
     }
-
-  
 })
 
 
